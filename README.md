@@ -27,12 +27,6 @@ Currently, the following collectors are built-in:
 + **Scrutinizer** : Shows the latest result of your Scrutinizer tests (code quality and coverage)
 + ... more coming soon! If you have ideas yourself, send them in (create a new issue with label 'enhancement')!
 
-In the near future I would also like to integrate these services into the actual panels that are used on the detail page
-(page you see when you click on other toolbar items).
-
-I'm thinking of using the API's made for both Travis and Scrutinizer to display some quick graphs and some testing results,
-all directly accessible under your favorite toolbar!
-
 
 # Requirements
 
@@ -63,17 +57,18 @@ Then run `php composer.phar update cleentfaar/ci-bundle`
 Most of the time, we need this bundle to be only activated in the `dev` environment
 
 ```php
-    //app/AppKernel.php
+// app/AppKernel.php
+[...]
+if (in_array($this->getEnvironment(), array('dev', 'test'))) {
     [...]
-    if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-        [...]
-        $bundles[] = new Cleentfaar\CIBundle\CleentfaarCIBundle();
-    }
+    $bundles[] = new Cleentfaar\CIBundle\CleentfaarCIBundle();
+}
 ```
 
-### Activate the collectors you want to use through your config_dev.yml
+### Activate the collectors you want to use
 
 The collectors can be used independently, and can be enabled/disabled through configuration as illustrated below.
+Since you should this bundle mostly through the dev-environment, I suggest you add them to ``config_dev.yml``
 
 
 ### Quick configuration
@@ -81,21 +76,48 @@ The collectors can be used independently, and can be enabled/disabled through co
 Since most of the configuration has sensible defaults, you only need the below configuration to use all collectors
 
 ```yaml
-    # config_dev.yml
-    cleentfaar_ci:
-        travis: true
-        scrutinizer:
-            shields:
-                quality:
-                    hash: YOUR_QUALITY_BADGE_HASH_HERE
-                coverage:
-                    hash: YOUR_COVERAGE_BADGE_HASH_HERE
+# app/config/config_dev.yml
+cleentfaar_ci:
+    travis: true
+    scrutinizer:
+        shields:
+            quality:
+                hash: YOUR_QUALITY_BADGE_HASH_HERE
+            coverage:
+                hash: YOUR_COVERAGE_BADGE_HASH_HERE
 ```
 
-**NOTE:** As you can see in the example above, a hash is required for Scrutinizer's badges to be displayed for your project
+#### About the hash
+As you can see in the example above, a hash is required for Scrutinizer's badges to be displayed for your project
 To get the hashes, simply log-in to your Scrutinizer Dashboard, and locate the badge examples displayed on the right.
 If you click on the information icon next to it you will get the source code of each badge. At the end of the image's URL
  is the hash you will need to enter in this configuration.
+Another advice is that you use a parameter to fill the actual value in your config_dev.yml. Here is an example:
+
+```yaml
+# app/config/config_dev.yml
+cleentfaar_ci:
+    travis: true
+    scrutinizer:
+        shields:
+            quality:
+                hash: %my_app.scrutinizer.quality_hash%
+            coverage:
+                hash: %my_app.scrutinizer.coverage_hash%
+```
+
+And then in your parameters.yml (unversioned, so that helps):
+
+```yaml
+# app/config/parameters.yml
+parameters:
+    ...
+    my_app.scrutinizer.quality_hash: 123456789abcdefgh
+    my_app.scrutinizer.coverage_hash: 123456789abcdefgh
+    ...
+```
+
+Obviosuly, here you should replace the values with the ones from your Scrutinizer Dashboard
 
 
 ### Full configuration example
@@ -104,17 +126,28 @@ Below you can see a full reference of the current configuration options. Note th
 functionality increases.
 
 ```yaml
-    cleentfaar_ci:
-        travis:
-            enabled:            false
-            shields:
-                build:
-                    enabled:    true
-        scrutinizer:
-            enabled:            false
-            shields:
-                quality:
-                    hash: YOUR_QUALITY_BADGE_HASH_HERE
-                coverage:
-                    hash: YOUR_COVERAGE_BADGE_HASH_HERE
+cleentfaar_ci:
+    travis:
+        enabled:            false
+        shields:
+            build:
+                enabled:    true
+    scrutinizer:
+        enabled:            false
+        shields:
+            quality:
+                hash: YOUR_QUALITY_BADGE_HASH_HERE
+            coverage:
+                hash: YOUR_COVERAGE_BADGE_HASH_HERE
 ```
+
+# Coming soon
+
++ Detailed panel views of each service in the debug page to indicate results from tests directly through use of the API's and graphs
++ Your idea here
+
+In the near future I would like to integrate these services into the actual panels that are used on the detail page
+(page you see when you click on other toolbar items).
+
+I'm thinking of using the API's made for both Travis and Scrutinizer to display some quick graphs and some testing results,
+all directly accessible under your favorite toolbar!
