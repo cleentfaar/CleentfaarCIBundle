@@ -1,4 +1,6 @@
 filter:
+  paths:
+    - "./*"
   excluded_paths:
     - "vendor/*"
 
