@@ -1,10 +1,12 @@
 CIBundle (Continuous Integration Bundle)
 ========================================
 
+Adds Continuous Integration statuses to your Symfony Web Debug Toolbar (Travis, Scrutinizer, more coming soon!)
+
 [![Total Downloads](https://poser.pugx.org/cleentfaar/ci-bundle/d/total.png)](https://packagist.org/packages/cleentfaar/ci-bundle)
 
 
-## So, what does this little thingie do?
+# So, what does this little thingie do?
 
 It adds extra sections to your Symfony Web Debug Toolbar related to continuous integration of your project:
 
@@ -22,7 +24,7 @@ Currently, the following collectors are built-in:
 + ... more coming soon! If you have ideas yourself, send them in (create a new issue with label 'enhancement')!
 
 
-## Requirements
+# Requirements
 
 + Your project uses Symfony (what else?)
 + You have hosted your project on GitHub, and you working on a clone of project (there is a .git directory in the root)
@@ -34,7 +36,7 @@ If you have your Symfony project hosted on GitHub, but not yet connected to eith
 guides out there to get this going, and it really is dead simple so *do* go for it!
 
 
-## Installation
+# Installation
 
 Add this in your `composer.json`
 
@@ -46,7 +48,7 @@ Add this in your `composer.json`
 Then run `php composer.phar update cleentfaar/ci-bundle`
 
 
-### Register the bundle in your AppKernel (`app/AppKernel.php`)
+## Register the bundle in your AppKernel (`app/AppKernel.php`)
 
 Most of the time, we need this bundle to be only activated in the `dev` environment
 
@@ -57,12 +59,12 @@ Most of the time, we need this bundle to be only activated in the `dev` environm
     }
 
 
-### Activate the collectors you want to use through your config_dev.yml
+## Activate the collectors you want to use through your config_dev.yml
 
 The collectors can be used independently, and can be enabled/disabled through configuration as illustrated below.
 
 
-#### Quick configuration
+### Quick configuration
 
 Since most of the configuration has sensible defaults, you only need the below configuration to use all collectors
 
@@ -84,7 +86,7 @@ If you click on the information icon next to it you will get the source code of 
  is the hash you will need to enter in this configuration.
 
 
-#### Full configuration example
+### Full configuration example
 
 Below you can see a full reference of the current configuration options. Note that more options will become available as
 functionality increases.
