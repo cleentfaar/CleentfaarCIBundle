@@ -1,0 +1,24 @@
+before_commands:
+  - "composer install"
+
+tools:
+  php_code_sniffer:
+    enabled: true
+    config:
+      standard: PSR2
+  php_cs_fixer:
+    enabled: true
+  php_mess_detector:
+    enabled: true
+    config:
+      code_size_rules:
+        too_many_fields: false
+        too_many_methods: false
+      design_rules:
+        coupling_between_objects: false
+  php_analyzer:
+    enabled: true
+  sensiolabs_security_checker:
+    enabled: true
+  php_code_coverage:
+    test_command: "phpunit"

@@ -1,9 +1,13 @@
-CIBundle (Continuous Integration Bundle)
+CIBundle
 ========================================
 
-Adds Continuous Integration statuses to your Symfony Web Debug Toolbar (Travis, Scrutinizer, more coming soon!)
+Adds Travis and Scrutinizer badges for your GitHub-hosted Symfony project to the Web Debug Toolbar.
 
-[![Total Downloads](https://poser.pugx.org/cleentfaar/ci-bundle/d/total.png)](https://packagist.org/packages/cleentfaar/ci-bundle)
+[![Latest Stable Version](https://poser.pugx.org/cleentfaar/simplr/version.png)](https://packagist.org/packages/cleentfaar/ci-bundle)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/cleentfaar/CleentfaarCIBundle/badges/quality-score.png?s=f4f2cf0b5120bfe4dce95ebcdac0259dad85424a)](https://scrutinizer-ci.com/g/cleentfaar/CleentfaarCIBundle/)
+[![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/CleentfaarCIBundle/badges/coverage.png?s=c718aeb7ef9ff6f4aa19a55756abba626c299fbb)](https://scrutinizer-ci.com/g/cleentfaar/CleentfaarCIBundle/)
+[![Build Status](https://travis-ci.org/cleentfaar/CleentfaarCIBundle.png?branch=master)](http://travis-ci.org/cleentfaar/CleentfaarCIBundle)
+[![Total Downloads](https://poser.pugx.org/cleentfaar/ci-bundle/downloads.png)](https://packagist.org/packages/cleentfaar/ci-bundle)
 
 
 # So, what does this little thingie do?
@@ -22,6 +26,12 @@ Currently, the following collectors are built-in:
 + **Travis** : Shows the badge of the latest result of your Travis tests
 + **Scrutinizer** : Shows the latest result of your Scrutinizer tests (code quality and coverage)
 + ... more coming soon! If you have ideas yourself, send them in (create a new issue with label 'enhancement')!
+
+In the near future I would also like to integrate these services into the actual panels that are used on the detail page
+(page you see when you click on other toolbar items).
+
+I'm thinking of using the API's made for both Travis and Scrutinizer to display some quick graphs and some testing results,
+all directly accessible under your favorite toolbar!
 
 
 # Requirements
@@ -48,18 +58,20 @@ Add this in your `composer.json`
 Then run `php composer.phar update cleentfaar/ci-bundle`
 
 
-## Register the bundle in your AppKernel (`app/AppKernel.php`)
+### Register the bundle in your AppKernel
 
 Most of the time, we need this bundle to be only activated in the `dev` environment
 
+```php
+    //app/AppKernel.php
     [...]
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {
         [...]
         $bundles[] = new Cleentfaar\CIBundle\CleentfaarCIBundle();
     }
+```
 
-
-## Activate the collectors you want to use through your config_dev.yml
+### Activate the collectors you want to use through your config_dev.yml
 
 The collectors can be used independently, and can be enabled/disabled through configuration as illustrated below.
 
@@ -91,6 +103,7 @@ If you click on the information icon next to it you will get the source code of 
 Below you can see a full reference of the current configuration options. Note that more options will become available as
 functionality increases.
 
+```yaml
     cleentfaar_ci:
         travis:
             enabled:            false
@@ -104,3 +117,4 @@ functionality increases.
                     hash: YOUR_QUALITY_BADGE_HASH_HERE
                 coverage:
                     hash: YOUR_COVERAGE_BADGE_HASH_HERE
+```
