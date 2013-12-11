@@ -1,0 +1,12 @@
+imports:
+    - { resource: services.yml }
+
+parameters:
+    cleentfaar_ci.data_collector.scrutinizer.class: Cleentfaar\Bundle\CIBundle\DataCollector\ScrutinizerDataCollector
+
+services:
+    cleentfaar_ci.data_collector.scrutinizer:
+        class: %cleentfaar_ci.data_collector.scrutinizer.class%
+        arguments: [%cleentfaar_ci.scrutinizer%, @cleentfaar_ci.configloader.git]
+        tags:
+            - { name: data_collector, template: CleentfaarCIBundle:Collector:scrutinizer, id: scrutinizer }

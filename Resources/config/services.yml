@@ -1,0 +1,7 @@
+parameters:
+    cleentfaar_ci.configloader.git.class: Cleentfaar\Bundle\CIBundle\ConfigLoader\GitConfigLoader
+
+services:
+    cleentfaar_ci.configloader.git:
+        class: %cleentfaar_ci.configloader.git.class%
+        arguments: [%kernel.root_dir%/../.git/config]

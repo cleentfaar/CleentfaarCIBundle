@@ -1,0 +1,23 @@
+{
+    "name":        "cleentfaar/ci-bundle",
+    "type":        "symfony-bundle",
+    "description": "Adds Continuous Integration statuses to your Symfony Web Debug Toolbar (Travis, Scrutinizer, more coming soon!)",
+    "keywords":    ["cleentfaar", "profiler", "continuous integration", "bundle"],
+    "homepage":    "http://github.com/cleentfaar/CleentfaarCIBundle",
+    "license":     "MIT",
+    "authors": [
+        {
+            "name": "Cas Leentfaar",
+            "homepage": "http://github.com/cleentfaar/CleentfaarCIBundle"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "~2.4",
+        "symfony/twig-bundle": "~2.4",
+        "twig/twig": "~1.15"
+    },
+    "autoload": {
+        "psr-0": { "Cleentfaar\\Bundle\\CIBundle": "" }
+    },
+    "target-dir": "Cleentfaar/Bundle/CIBundle"
+}

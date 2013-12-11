@@ -1,0 +1,12 @@
+imports:
+    - { resource: services.yml }
+
+parameters:
+    cleentfaar_ci.data_collector.travis.class: Cleentfaar\Bundle\CIBundle\DataCollector\TravisDataCollector
+
+services:
+    cleentfaar_ci.data_collector.travis:
+        class: %cleentfaar_ci.data_collector.travis.class%
+        arguments: [%cleentfaar_ci.travis%, @cleentfaar_ci.configloader.git]
+        tags:
+            - { name: data_collector, template: CleentfaarCIBundle:Collector:travis, id: travis }
