@@ -1,0 +1,4 @@
+[foo "bar"]
+	url = https://github.com/cleentfaar/CleentfaarCIBundle.git
+[leaf "master"]
+	some = var

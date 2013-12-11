@@ -1,0 +1,4 @@
+[remote "origin"]
+	url = https://github.com/cleentfaar/CleentfaarCIBundle.git
+[branch "master"]
+	some = var

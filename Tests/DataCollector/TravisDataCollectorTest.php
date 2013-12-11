@@ -18,32 +18,42 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TravisDataCollectorTest extends WebTestCase
 {
-/*    public function testCollect()
+    public function testCollect()
+    {
+        $thrownException = false;
+        try {
+            $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
+            $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
+
+            $gitConfigLoader = new GitConfigLoader($this->getPathToGoodConfig());
+            $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
+
+            $dataCollector->collect($request, $response);
+        } catch (\Exception $e) {
+            $thrownException = true;
+        }
+        $this->assertFalse($thrownException);
+    }
+
+    public function testGetBuildShieldUrl()
     {
         $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
         $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
 
-        $gitConfigLoader = $this->getMock('\Cleentfaar\Bundle\CIBundle\ConfigLoader\GitConfigLoader');
-        $mockLoader = $this->getMock('\Cleentfaar\Bundle\CIBundle\DataCollector\TravisDataCollector');
+        $gitConfigLoader = new GitConfigLoader($this->getPathToGoodConfig());
+        $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
 
-        $mockLoader->expects($this->once())->method('collect')->with($request, $response);
-        $this->assertAttributeEquals(
-            $gitConfigLoader,
-            'configLoader',
-            $mockLoader
-        );
-        $mockLoader->collect($request, $response);
-    }*/
+        $dataCollector->collect($request, $response);
+        $buildShieldUrl = $dataCollector->getBuildShieldUrl();
+        $this->assertEquals('string', gettype($buildShieldUrl));
+    }
 
-    /**
-     * @return string
-     */
     public function testGetTravisUrl()
     {
         $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
         $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
 
-        $gitConfigLoader = new GitConfigLoader($this->getPathToBadConfig());
+        $gitConfigLoader = new GitConfigLoader($this->getPathToGoodConfig());
         $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
 
         $dataCollector->collect($request, $response);
@@ -51,15 +61,20 @@ class TravisDataCollectorTest extends WebTestCase
         $this->assertEquals('string', gettype($travisUrl));
     }
 
-    /**
-     * @return string
-     */
-    /*public function testGetBuildShieldUrl()
+    public function testBadConfig()
     {
-        $mockLoader = $this->getMock('\Cleentfaar\Bundle\CIBundle\DataCollector\TravisDataCollector', array('getBuildShieldUrl'));
-        $buildShieldUrl = $mockLoader->getBuildShieldUrl();
-        $this->assertEquals('string', gettype($buildShieldUrl));
-    }*/
+        $thrownException = false;
+        try {
+            $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
+            $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
+            $gitConfigLoader = new GitConfigLoader($this->getPathToBadConfig());
+            $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
+            $dataCollector->collect($request, $response);
+        } catch (\Exception $e) {
+            $thrownException = true;
+        }
+        $this->assertTrue($thrownException);
+    }
 
     private function getTravisConfig()
     {
@@ -79,10 +94,5 @@ class TravisDataCollectorTest extends WebTestCase
     private function getPathToBadConfig()
     {
         return __DIR__ . '/../config.bad';
-    }
-
-    private function getDataLoader()
-    {
-        return $this->getMock('\Cleentfaar\Bundle\CIBundle\DataCollector\TravisDataCollector');
     }
 }
