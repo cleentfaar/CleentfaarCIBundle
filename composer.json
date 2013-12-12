@@ -12,9 +12,9 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": "~2.4",
-        "symfony/twig-bundle": "~2.4",
-        "twig/twig": "~1.15"
+        "symfony/framework-bundle": "~2.3",
+        "symfony/twig-bundle": "~2.3",
+        "twig/twig": "~1.10"
     },
     "autoload": {
         "psr-0": { "Cleentfaar\\Bundle\\CIBundle": "" }
