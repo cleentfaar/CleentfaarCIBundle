@@ -14,7 +14,7 @@ tools:
     php_code_coverage: true
     php_mess_detector: true
     php_cpd:
-		excluded_dirs: ["vendor"]
+        excluded_dirs: ["vendor"]
         enabled: true
     php_pdepend:
         excluded_dirs: ["vendor"]
