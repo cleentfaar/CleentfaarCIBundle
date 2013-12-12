@@ -1,7 +1,7 @@
 CIBundle
 ========================================
 
-[![Latest Stable Version](https://poser.pugx.org/cleentfaar/simplr/version.png)](https://packagist.org/packages/cleentfaar/ci-bundle)
+[![Latest Stable Version](https://poser.pugx.org/cleentfaar/ci-bundle/v/stable.png)](https://packagist.org/packages/cleentfaar/ci-bundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/cleentfaar/CleentfaarCIBundle/badges/quality-score.png?s=f4f2cf0b5120bfe4dce95ebcdac0259dad85424a)](https://scrutinizer-ci.com/g/cleentfaar/CleentfaarCIBundle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/cleentfaar/CleentfaarCIBundle/badges/coverage.png?s=c718aeb7ef9ff6f4aa19a55756abba626c299fbb)](https://scrutinizer-ci.com/g/cleentfaar/CleentfaarCIBundle/)
 [![Build Status](https://travis-ci.org/cleentfaar/CleentfaarCIBundle.png?branch=master)](http://travis-ci.org/cleentfaar/CleentfaarCIBundle)
