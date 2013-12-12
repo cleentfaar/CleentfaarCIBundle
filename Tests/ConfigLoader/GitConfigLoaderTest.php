@@ -17,11 +17,6 @@ use Cleentfaar\Bundle\CIBundle\Test\ConfigTest;
 class GitConfigLoaderTest extends ConfigTest
 {
     /**
-     * @var array
-     */
-    protected $config;
-
-    /**
      * @param string $pathToConfig
      */
     public function testConstruct()
