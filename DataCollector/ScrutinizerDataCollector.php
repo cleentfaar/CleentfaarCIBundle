@@ -18,11 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ScrutinizerDataCollector extends BaseDataCollector
 {
     /**
-     * @var array
-     */
-    private $config;
-
-    /**
      * @var \Cleentfaar\Bundle\CIBundle\Configloader\GitConfigloader
      */
     private $configLoader;
@@ -57,10 +52,18 @@ class ScrutinizerDataCollector extends BaseDataCollector
             }
             switch ($shield) {
                 case 'quality':
-                    $this->data['quality_shield_url'] = sprintf('https://scrutinizer-ci.com/g/%s/badges/quality-score.png?s=%s', $repositorySlug, $shieldConfig['hash']);
+                    $this->data['quality_shield_url'] = sprintf(
+                        'https://scrutinizer-ci.com/g/%s/badges/quality-score.png?s=%s',
+                        $repositorySlug,
+                        $shieldConfig['hash']
+                    );
                     break;
                 case 'coverage':
-                    $this->data['coverage_shield_url'] = sprintf('https://scrutinizer-ci.com/g/%s/badges/coverage.png?s=%s', $repositorySlug, $shieldConfig['hash']);
+                    $this->data['coverage_shield_url'] = sprintf(
+                        'https://scrutinizer-ci.com/g/%s/badges/coverage.png?s=%s',
+                        $repositorySlug,
+                        $shieldConfig['hash']
+                    );
                     break;
             }
         }

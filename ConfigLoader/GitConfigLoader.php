@@ -63,7 +63,7 @@ class GitConfigLoader implements ConfigLoaderInterface
     {
         try {
             $config = $this->getConfig();
-            foreach ($config as $key => $data) {
+            foreach (array_keys($config) as $key) {
                 if (substr($key, 0, 7) == 'branch ') {
                     return substr($key, 7);
                 }

@@ -16,11 +16,11 @@ interface ConfigLoaderInterface
     /**
      * @return array
      */
-    function getConfig();
+    public function getConfig();
 
     /**
      * @param $pathToConfig
      * @return array
      */
-    function load($pathToConfig);
+    public function load($pathToConfig);
 }

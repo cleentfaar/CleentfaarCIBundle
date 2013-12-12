@@ -47,10 +47,14 @@ class TravisDataCollector extends BaseDataCollector
         $repositorySlug = $this->configLoader->retrieveRepositorySlug();
         $branch = $this->configLoader->retrieveBranch();
         $this->data['travis_url'] = sprintf('https://travis-ci.org/%s', $repositorySlug);
-        foreach ($this->config['shields'] as $shield => $shieldConfig) {
+        foreach (array_keys($this->config['shields']) as $shield) {
             switch ($shield) {
                 case 'build':
-                    $this->data['build_shield_url'] = sprintf('https://travis-ci.org/%s.png?branch=%s', $repositorySlug, $branch);
+                    $this->data['build_shield_url'] = sprintf(
+                        'https://travis-ci.org/%s.png?branch=%s',
+                        $repositorySlug,
+                        $branch
+                    );
                     break;
             }
         }

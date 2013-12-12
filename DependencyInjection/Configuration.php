@@ -35,14 +35,14 @@ class Configuration implements ConfigurationInterface
                             ->prototype('array')
                                 ->beforeNormalization()
                                     ->ifArray()
-                                    ->then(function($v) {
+                                    ->then(function ($v) {
                                         $v['enabled'] = true;
                                         return $v;
                                     })
                                 ->end()
                                 ->beforeNormalization()
                                     ->ifTrue()
-                                    ->then(function($v) {
+                                    ->then(function ($v) {
                                         $v = array(
                                             'enabled' => true,
                                         );
@@ -57,7 +57,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->beforeNormalization()
                         ->ifArray()
-                        ->then(function($v) {
+                        ->then(function ($v) {
                             $v['enabled'] = true;
                             return $v;
                         })
@@ -70,7 +70,7 @@ class Configuration implements ConfigurationInterface
                             ->prototype('array')
                                 ->beforeNormalization()
                                     ->ifArray()
-                                    ->then(function($v) {
+                                    ->then(function ($v) {
                                         if ($v['hash'] != '') {
                                             $v['enabled'] = true;
                                         }
@@ -87,7 +87,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->beforeNormalization()
                         ->ifArray()
-                        ->then(function($v) {
+                        ->then(function ($v) {
                             $v['enabled'] = true;
                             return $v;
                         })
