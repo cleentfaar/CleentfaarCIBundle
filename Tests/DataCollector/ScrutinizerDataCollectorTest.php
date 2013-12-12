@@ -12,9 +12,10 @@
 namespace Cleentfaar\Bundle\CIBundle\Tests\DataCollector;
 
 use Cleentfaar\Bundle\CIBundle\ConfigLoader\GitConfigLoader;
+use Cleentfaar\Bundle\CIBundle\DataCollector\ScrutinizerDataCollector;
 use Cleentfaar\Bundle\CIBundle\DataCollector\TravisDataCollector;
 
-class TravisDataCollectorTest extends DataCollectorTest
+class ScrutinizerDataCollectorTest extends DataCollectorTest
 {
     public function testCollect()
     {
@@ -24,7 +25,7 @@ class TravisDataCollectorTest extends DataCollectorTest
             $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
 
             $gitConfigLoader = new GitConfigLoader($this->getPathToGoodConfig());
-            $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
+            $dataCollector = new ScrutinizerDataCollector($this->getScrutinizerConfig(), $gitConfigLoader);
 
             $dataCollector->collect($request, $response);
         } catch (\Exception $e) {
@@ -33,30 +34,43 @@ class TravisDataCollectorTest extends DataCollectorTest
         $this->assertFalse($thrownException);
     }
 
-    public function testGetBuildShieldUrl()
+    public function testGetQualityShieldUrl()
     {
         $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
         $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
 
         $gitConfigLoader = new GitConfigLoader($this->getPathToGoodConfig());
-        $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
+        $dataCollector = new ScrutinizerDataCollector($this->getScrutinizerConfig(), $gitConfigLoader);
 
         $dataCollector->collect($request, $response);
-        $buildShieldUrl = $dataCollector->getBuildShieldUrl();
-        $this->assertEquals('string', gettype($buildShieldUrl));
+        $shieldUrl = $dataCollector->getQualityShieldUrl();
+        $this->assertEquals('string', gettype($shieldUrl));
     }
 
-    public function testGetTravisUrl()
+    public function testGetCoverageShieldUrl()
     {
         $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
         $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
 
         $gitConfigLoader = new GitConfigLoader($this->getPathToGoodConfig());
-        $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
+        $dataCollector = new ScrutinizerDataCollector($this->getScrutinizerConfig(), $gitConfigLoader);
 
         $dataCollector->collect($request, $response);
-        $travisUrl = $dataCollector->getTravisUrl();
-        $this->assertEquals('string', gettype($travisUrl));
+        $shieldUrl = $dataCollector->getCoverageShieldUrl();
+        $this->assertEquals('string', gettype($shieldUrl));
+    }
+
+    public function testGetScrutinizerUrl()
+    {
+        $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
+        $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
+
+        $gitConfigLoader = new GitConfigLoader($this->getPathToGoodConfig());
+        $dataCollector = new ScrutinizerDataCollector($this->getScrutinizerConfig(), $gitConfigLoader);
+
+        $dataCollector->collect($request, $response);
+        $url = $dataCollector->getScrutinizerUrl();
+        $this->assertEquals('string', gettype($url));
     }
 
     public function testBadConfig()
@@ -66,7 +80,7 @@ class TravisDataCollectorTest extends DataCollectorTest
             $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
             $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
             $gitConfigLoader = new GitConfigLoader($this->getPathToBadConfig());
-            $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
+            $dataCollector = new ScrutinizerDataCollector($this->getScrutinizerConfig(), $gitConfigLoader);
             $dataCollector->collect($request, $response);
         } catch (\Exception $e) {
             $thrownException = true;
@@ -81,7 +95,7 @@ class TravisDataCollectorTest extends DataCollectorTest
             $request = $this->getMock('\Symfony\Component\HttpFoundation\Request');
             $response = $this->getMock('\Symfony\Component\HttpFoundation\Response');
             $gitConfigLoader = new GitConfigLoader($this->getPathToGoodConfig());
-            $dataCollector = new TravisDataCollector($this->getTravisConfig(), $gitConfigLoader);
+            $dataCollector = new ScrutinizerDataCollector($this->getScrutinizerConfig(), $gitConfigLoader);
             $dataCollector->collect($request, $response);
         } catch (\Exception $e) {
             $thrownException = true;
@@ -89,14 +103,19 @@ class TravisDataCollectorTest extends DataCollectorTest
         $this->assertFalse($thrownException);
     }
 
-    private function getTravisConfig()
+    private function getScrutinizerConfig()
     {
         return array(
             'enabled' => true,
             'shields' => array(
-                'build' => array(
-                    'enabled' => true
-                )
+                'quality' => array(
+                    'enabled' => true,
+                    'hash' => '123abc',
+                ),
+                'coverage' => array(
+                    'enabled' => true,
+                    'hash' => '123abc',
+                ),
             )
         );
     }
