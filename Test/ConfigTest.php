@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Cleentfaar\Bundle\CIBundle\Tests\DataCollector;
+namespace Cleentfaar\Bundle\CIBundle\Test;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-abstract class DataCollectorTest extends WebTestCase
+abstract class ConfigTest extends WebTestCase
 {
     protected function getPathToGoodConfig()
     {
-        return __DIR__ . '/../config.good';
+        return __DIR__ . '/../Tests/config.good';
     }
 
     protected function getPathToBadConfig()
     {
-        return __DIR__ . '/../config.bad';
+        return __DIR__ . '/../Tests/config.bad';
     }
 }

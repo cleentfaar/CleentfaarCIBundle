@@ -21,12 +21,11 @@ class GitConfigLoader implements ConfigLoaderInterface
     /**
      * @param string $pathToConfig
      */
-    public function __construct($pathToConfig)
+    public function __construct($pathToConfig = null)
     {
-        if (!file_exists($pathToConfig)) {
-            throw new \Exception(sprintf("Path to GIT configuration file does not exist: %s", $pathToConfig));
+        if ($pathToConfig !== null) {
+            $this->load($pathToConfig);
         }
-        $this->config = $this->load($pathToConfig);
     }
 
     /**
@@ -82,13 +81,20 @@ class GitConfigLoader implements ConfigLoaderInterface
      */
     public function load($pathToConfig)
     {
-        if (!isset($this->gitConfig)) {
-            $gitConfig = parse_ini_file($pathToConfig, true);
-            if (!is_array($gitConfig)) {
-                throw new \Exception("Failed to access GIT configuration file in %s", $pathToConfig);
+        try {
+            if (!file_exists($pathToConfig)) {
+                throw new \Exception(sprintf("Path to GIT configuration file does not exist: %s", $pathToConfig));
             }
-            $this->gitConfig = $gitConfig;
+            if (!isset($this->config)) {
+                $gitConfig = parse_ini_file($pathToConfig, true);
+                if (!is_array($gitConfig)) {
+                    throw new \Exception("Failed to access GIT configuration file in %s", $pathToConfig);
+                }
+                $this->config = $gitConfig;
+            }
+            return $this->config;
+        } catch (\Exception $e) {
+            throw new \Exception("Failed to load configuration", null, $e);
         }
-        return $this->gitConfig;
     }
 }

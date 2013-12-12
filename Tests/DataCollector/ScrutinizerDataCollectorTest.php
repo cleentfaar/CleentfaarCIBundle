@@ -13,9 +13,9 @@ namespace Cleentfaar\Bundle\CIBundle\Tests\DataCollector;
 
 use Cleentfaar\Bundle\CIBundle\ConfigLoader\GitConfigLoader;
 use Cleentfaar\Bundle\CIBundle\DataCollector\ScrutinizerDataCollector;
-use Cleentfaar\Bundle\CIBundle\DataCollector\TravisDataCollector;
+use Cleentfaar\Bundle\CIBundle\Test\ConfigTest;
 
-class ScrutinizerDataCollectorTest extends DataCollectorTest
+class ScrutinizerDataCollectorTest extends ConfigTest
 {
     public function testCollect()
     {

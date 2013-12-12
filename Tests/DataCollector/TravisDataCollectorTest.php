@@ -13,8 +13,9 @@ namespace Cleentfaar\Bundle\CIBundle\Tests\DataCollector;
 
 use Cleentfaar\Bundle\CIBundle\ConfigLoader\GitConfigLoader;
 use Cleentfaar\Bundle\CIBundle\DataCollector\TravisDataCollector;
+use Cleentfaar\Bundle\CIBundle\Test\ConfigTest;
 
-class TravisDataCollectorTest extends DataCollectorTest
+class TravisDataCollectorTest extends ConfigTest
 {
     public function testCollect()
     {
