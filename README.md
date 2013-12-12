@@ -86,11 +86,16 @@ cleentfaar_ci:
 ```
 
 #### About the hash
-As you can see in the example above, a hash is required for Scrutinizer's badges to be displayed for your project
+As you can see in the example above, a hash is required for Scrutinizer's badges to be displayed for your project.
+
 To get the hashes, simply log-in to your Scrutinizer Dashboard, and locate the badge examples displayed on the right.
-If you click on the information icon next to it you will get the source code of each badge. At the end of the image's URL
- is the hash you will need to enter in this configuration.
-Another advice is that you use a parameter to fill the actual value in your config_dev.yml. Here is an example:
+
+If you click on the information icon next to it you will get the source code of each badge. At the end of the image's URL is the hash you will need to enter in this configuration.
+
+Another advice is that you use a parameter to fill the actual value in your app/config/config_dev.yml-file. 
+The reason for this is that if you are working on a project with more than one developer, you are bound to be working on different branches at one time or another. Since the badges are  team on the same project Even though there may not be any danger in sharing this number in public;
+
+Here is an example:
 
 ```yaml
 # app/config/config_dev.yml
@@ -104,7 +109,7 @@ cleentfaar_ci:
                 hash: %my_app.scrutinizer.coverage_hash%
 ```
 
-And then in your parameters.yml (unversioned, so that helps):
+And then in your parameters.yml (should be unversioned, so that helps):
 
 ```yaml
 # app/config/parameters.yml
@@ -115,13 +120,12 @@ parameters:
     ...
 ```
 
-Obviosuly, here you should replace the values with the ones from your Scrutinizer Dashboard
+Obviously, in the last example you *should* replace the values with the ones from your Scrutinizer Dashboard
 
 
 ### Full configuration example
 
-Below you can see a full reference of the current configuration options. Note that more options will become available as
-functionality increases.
+Below you can see a full reference of the current configuration options. Note that more options will become available as functionality increases.
 
 ```yaml
 cleentfaar_ci:
@@ -142,10 +146,12 @@ cleentfaar_ci:
 # Coming soon
 
 + Detailed panel views of each service in the debug page to indicate results from tests directly through use of the API's and graphs
-+ Your idea here
++ More configuration options, especially to authenticate with the different API's for more detailed results
++ Your idea here!
+
+## Summary
 
 In the near future I would like to integrate these services into the actual panels that are used on the detail page
 (page you see when you click on other toolbar items).
 
-I'm thinking of using the API's made for both Travis and Scrutinizer to display some quick graphs and some testing results,
-all directly accessible under your favorite toolbar!
+I'm thinking of using the API's made for both Travis and Scrutinizer to display some quick graphs and some testing results, all directly accessible under your favorite toolbar!
